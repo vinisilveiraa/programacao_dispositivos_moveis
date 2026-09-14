@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LoginApp</string>
+    <string name="texto_usuario">Usuário:</string>
+    <string name="texto_senha">Senha:</string>
+    <string name="placeholder_usuario">Entre com o seu usuário.</string>
+    <string name="placeholder_senha">Entre com a sua senha.</string>
+    <string name="button_texto_login">Login</string>
+</resources>

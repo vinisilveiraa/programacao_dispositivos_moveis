@@ -1,0 +1,16 @@
+Alterar a Herança das Classes de AppCompatActivity para DebugActivity: 
+
+
+De:
+public class MainActivity extends AppCompatActivity {
+
+Para:
+public class MainActivity extends DebugActivity {
+
+--------------------------------------------------------------------------
+
+De:
+public class BemVindoActivity extends AppCompatActivity {
+
+Para:
+public class BemVindoActivity extends DebugActivity {
