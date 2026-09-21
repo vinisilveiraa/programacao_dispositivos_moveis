@@ -1,9 +1,13 @@
 package br.edu.fatecjahu.loginapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,27 +40,134 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 3. cria os botoes
-                tLogin = (TextView) findViewById(R.id.tLogin);
-                tSenha = (TextView) findViewById(R.id.tSenha);
+                tLogin = (TextView) findViewById(R.id.edtUsuario);
+                tSenha = (TextView) findViewById(R.id.edtSenha);
 
                 //  4. cria user e senha padrao
                 final String LOGIN = "vini";
                 final String SENHA = "12345";
 
                 // 5. captura user e senha
-                String login = tlogin.getText().toString();
+                String login = tLogin.getText().toString();
                 String senha = tSenha.getText().toString();
 
                 // 6. validacao do user
                 if (LOGIN.equals(login) && SENHA.equals(senha)){
-                    // cria indent
-                    // cria pacote
-                    // adiciona chaves e valores
-                } else {
+                    // 7. cria intent ( passo 8 abaixo )
+                    Intent intent = new Intent(getContext(0), BemVindoActivity.class);
 
+                    // 9. cria pacote
+                    Bundle params = new Bundle();
+
+                    // 10. adiciona chaves e valores             // key  =  value
+                    params.putString("nome", "Vini Silveira");   //  nome = "Vini Silveira";
+                    params.putFloat("valor1", 9.00f);            //  valor1 = 9.00;
+                    params.putDouble("valor2", 5.50);            //  valor2 = 5.50;
+                    params.putInt("valor3", 20);                 //  valor3 = 20;
+                    params.putChar("valor4", 'A');               //  valor4 = 'A';
+                    params.putString("acesso", login);           //  acesso = login;
+
+                /*
+                     OBS: Se os métodos clear e remove forem chamados antes do params ser carregado
+                          na intent, respectivamente essas operações (métodos clear e remove)
+                          vão apagar todos os conteúdos através do nome do pacote ou
+                          remover um ou mais conteúdo através uma ou mais chaves.
+                */
+
+                    // 11. colocar o pacote de dados (params) no obj intent
+                    intent.putExtras(params);
+
+                    // 12. navega pra proxima tela
+                    startActivity(intent);
+
+                    // OBS: Descomentar a linha abaixo depois do passo 21.
+                    //mostrarLog(params);
+
+                    // Metodo clear exclui o conteúdo das chaves (key) de params.
+                    //params.clear();
+                    //Log.i(TAG2, getClassName() + " => Removendo todos os dados do pacote!!!");
+
+                    // Metodo remove: exclui cada a chave (key) individualmente em params.
+                    //params.remove("nome");
+                    //params.remove("valor1");
+                    //params.remove("valor2");
+                    //params.remove("valor3");
+                    //params.remove("valor4");
+                    //Log.i(TAG2, getClassName() + " => Removendo todos ou alguns dados do pacote!!!");
+
+                    // OBS: Descomentar a linha abaixo depois do passo 21.
+                    //mostrarLog(params);
+
+                    // 13. mensagem de login efetuado
+                    alert("Bem Vindo, " + login + ". Login realizado com sucesso!");
+                    //Log.i(TAG, getClassName() + " => Login do usuário efetuado com sucesso!!!");
+
+
+                } else {
+                    // 16. mensagem de falha no login
+                    alert("Login e/ou senha incorretos!");
+                    //Log.i(TAG, getClassName() + " => Não foi possivel entrar no Aplicativo.");
                 }
             }
         });
+    }
 
+    // 14. metodo alert para mostrar mensagens de notificacao do aplicativo
+    private void alert(String msg) {
+        // 15. A classe Toast mostra uma alerta temporário muito comum no Android.
+        Toast toast = Toast.makeText(getContext(0), msg, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM, 0, 0); // no bottom, traca 0-0 (centraliza)
+    }
+
+    /*
+    // 21. Metodo mostrarLog para mostrar os dados do pacote "params".
+    private void mostrarLog(Bundle bundle) {
+        //Imprimir o conteúdo das variáveis: nome, valor1, valor2 e valor3 no DEBUG do log(LogCat):
+        // TAG2 = "Dado" declarado na Classe DebugActivity. Filtrar na tag Dado e opção DEBUG.
+        Log.d(TAG2, getClassName() + " => Mostrando dados da MainActivity: ");
+
+        Log.d(TAG2, getClassName() + " => Nome: " + bundle.getString("nome"));
+        Log.d(TAG2, getClassName() + " => Valor1: " + bundle.getFloat("valor1"));
+        Log.d(TAG2, getClassName() + " => Valor2: " + bundle.getDouble("valor2"));
+        Log.d(TAG2, getClassName() + " => Valor3: " + bundle.getInt("valor3"));
+        Log.d(TAG2, getClassName() + " => Valor4: " + bundle.getChar("valor4"));
+        Log.i(TAG, getClassName() + " => Um mais dados do pacote foram lidos.");
+    }
+   */
+
+    // 17. Metodo Limpar Dados: Login e Senha.
+    private void limparDados() {
+        //Log.i(TAG, getClassName() + " => Limpando dados...");
+        // Associação das caixas de textos aos objetos do Java.
+        tLogin = (TextView) findViewById(R.id.edtUsuario);
+        tSenha = (TextView) findViewById(R.id.edtSenha);
+
+        // Limpar as caixas de texto: usuário e senha.
+        tLogin.setText("");
+        tSenha.setText("");
+    }
+
+    // 18. Chamada ao metodo onRestart para limpar os dados quando
+    //     retornar da tela BemVindoActivity para a tela MainActivity.
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //Log.i(TAG, getClassName() + " => Realizar a limpeza dos dados do Login...");
+        limparDados();
+        //Log.i(TAG, getClassName() + " => Dados do Login Removidos...");
+    }
+
+    // 8. Criação do Metodo de Contexto.
+    // Parâmetro do metodo getContext() é um inteiro que pode ser 0 ou 1.
+    // Passando o valor = 1 para mostrar a mensagem do Context no metodo alert().
+    // Caso seja outro valor, por exemplo value = 0, então não mostra
+    // nenhuma mensagem do Context no metodo alert().
+
+    // private MainActivity getContext() {
+    private Context getContext(int value) {
+        if (value == 1) {
+            //Log.i(TAG, getClassName() + " => Passou pelo Contexto atual: " + getClassName());
+        }
+        return this;
     }
 }
