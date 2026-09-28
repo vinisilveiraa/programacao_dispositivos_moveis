@@ -26,6 +26,10 @@
             android:exported="false"
             android:theme="@style/Theme.LoginApp"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".DebugActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

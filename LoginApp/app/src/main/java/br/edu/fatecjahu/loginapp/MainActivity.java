@@ -1,6 +1,9 @@
 package br.edu.fatecjahu.loginapp;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -169,5 +172,59 @@ public class MainActivity extends AppCompatActivity {
             //Log.i(TAG, getClassName() + " => Passou pelo Contexto atual: " + getClassName());
         }
         return this;
+    }
+
+    // 20. Metodo onBackPressedDispatcher() para sair do aplicativo.
+    @SuppressLint({"MissingSuperCall", "GestureBackNavigation"})
+    @Override
+    public void onBackPressed() {
+        // Instaciação de um objeto alertDialogBuilder (Caixa de Diálogo Personalizada)
+        // da classe do tipo AlertDialog.Builder.
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        //Log.i(TAG, getClassName() + " => Objeto Criado: alertDialogBuilder.");
+
+        // Configuração de uma Caixa de Diálogo Personalizada.
+        alertDialogBuilder.setTitle("Confirmar Saída");
+        alertDialogBuilder.setIcon(R.drawable.ic_exit); // R.drawable.ic_exit;
+        alertDialogBuilder.setMessage("Você tem certeza que deseja sair ?");
+        alertDialogBuilder.setCancelable(false);
+
+        //Log.i(TAG, getClassName() + " => Objeto Configurado: alertDialogBuilder.");
+
+        // Configuração do botão "Sim" da Caixa de Diálogo Personalizada...
+        // ...e acionamento do metodo onClick permitindo a saída do Aplicativo,
+        // através do encerramento da Activity.
+
+        // Metodo do botão "Sim"
+        //  setPositiveButton() => DialogInterface.OnClickListener() => onClick()
+        alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish(); // Encerra a Activity.
+                // Metodo finish faz chamada de forma programática ao
+                // metodo OnDestroy() do ciclo de vida da Activity.
+                //Log.i(TAG, getClassName() + ".onBackPressed() chamado. Botão Sim pressionado.");
+            }
+        });
+
+        // Configuração do botão "Não" da Caixa de Diálogo Personalizada...
+        // ...e mostra mensagem de cancelamento de saída do Aplicativo.
+
+        // Metodo do botão "Não"
+        //  setNegativeButton() => DialogInterface.OnClickListener() => onClick()
+        alertDialogBuilder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alert("Você clicou em cancelar!!!");
+                //Log.i(TAG, getClassName() + ".onBackPressed() chamado. Botão Não pressionado.");
+            }
+        });
+
+        // Construção de uma Caixa de Diálogo Personalizada
+        // e mostra a Caixa de Diálogo criada para o usuário.
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        //Log.i(TAG, getClassName() + " => Objeto Criado e Visualizado: alerDialog.");
     }
 }
