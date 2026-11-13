@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ConversorMoedasApp</string>
+    <string name="texto_titulo_conversor_de_moedas">Conversor de Moedas</string>
+    <string name="texto_entrada_valor_em_reais">Digite o valor em R$</string>
+    <string name="texto_entrada_valor_em_moeda_estrangeira">Digite o valor em Dólar, Euro ou Libra</string>
+    <string name="button_texto_converter">Converter</string>
+    <string name="texto_saida_resultado">Resultado aparecerá aqui</string>
+    <string name="texto_msg_digite_um_valor_valido_em_reais">Digite um valor válido em reais!</string>
+    <string name="texto_msg_digite_um_valor_valido_estrangeiro">Digite um valor válido em moeda estrangeira: dólar, euro ou libra esterlina!</string>
+    <string name="texto_msg_erro_ao_obter_taxa_de_cambio_verifique_sua_conexao">Erro ao obter taxa de câmbio. Verifique sua conexão.</string>
+</resources>
